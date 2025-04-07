@@ -1,6 +1,6 @@
 local project_name = 'wsl-update-kernel';
 local date_released = '2025-04-07';
-local version = '0.0.1';
+local version = '0.0.0';
 
 local authors = [{'name': 'Andrew Udvare', 'email': 'audvare@gmail.com'}];
 local package_json_authors = ['%s <%s>' % [x['name'], x['email']] for x in authors];
@@ -29,7 +29,7 @@ local repository_name = project_name;
 local repository_uri = 'https://github.com/%s/%s' % [github_username, project_name];
 
 local min_python_minor_version = '12';
-local supported_python_versions = ['3.%s' % min_python_minor_version] + [('3.%s' % i) for i in [12]];
+local supported_python_versions = ['3.%s' % min_python_minor_version] + [('3.%s' % i) for i in [13]];
 local yarn_version = '4.8.1';
 
 local shared_ignore = [
@@ -80,40 +80,6 @@ local manifestYaml(value) =
     ],
     version: 2,
   }),
-  '.github/workflows/close-inactive.yml': manifestYaml({
-    name: 'Close inactive issues',
-    on: {
-      schedule: [
-        {
-          cron: '30 1 * * *',
-        },
-      ],
-    },
-    jobs: {
-      'close-issues': {
-        'runs-on': 'ubuntu-latest',
-        permissions: {
-          issues: 'write',
-          'pull-requests': 'write',
-        },
-        steps: [
-          {
-            uses: 'actions/stale@v5',
-            with: {
-              'days-before-issue-stale': 30,
-              'days-before-issue-close': 14,
-              'stale-issue-label': 'stale',
-              'stale-issue-message': 'This issue is stale because it has been open for 30 days with no activity.',
-              'close-issue-message': 'This issue was closed because it has been inactive for 14 days since being marked as stale.',
-              'days-before-pr-stale': -1,
-              'days-before-pr-close': -1,
-              'repo-token': '${{ secrets.GITHUB_TOKEN }}',
-            },
-          },
-        ],
-      },
-    },
-  }),
   '.github/workflows/qa.yml': manifestYaml({
     jobs: {
       build: {
@@ -143,16 +109,12 @@ local manifestYaml(value) =
             run: 'yarn',
           },
           {
-            name: 'Install Shellcheck',
-            run: 'sudo apt-get install -y shellcheck',
-          },
-          {
-            name: 'Lint with Shellcheck',
-            run: 'yarn shellcheck',
-          },
-          {
             name: 'Lint with mypy',
-            run: 'yarn mypy',
+            run: 'yarn mypy .',
+          },
+          {
+            name: 'Lint with Ruff',
+            run: 'yarn ruff .',
           },
           {
             name: 'Check spelling',
