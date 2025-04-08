@@ -13,6 +13,7 @@ debugpy
 doctrees
 eeyore
 esbonio
+excinfo
 furb
 genindex
 htmlcov
@@ -42,6 +43,7 @@ sphinxdoc
 tatsh
 testpaths
 tomlkit
+tryfirst
 udvare
 viewcode
 virtualenv
