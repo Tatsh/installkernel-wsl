@@ -9,7 +9,7 @@ classifiers = [
   "License :: OSI Approved :: MIT License",
   "Programming Language :: Python",
   "Programming Language :: Python :: 3.12",
-  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
   "Typing :: Typed",
 ]
 description = "Script and installkernel hook to copy Linux kernel to the host system and update .wslconfig."
@@ -96,11 +96,14 @@ tomlkit = "^0.13.2"
 optional = true
 
 [tool.poetry.group.tests.dependencies]
-coveralls = { python = "<3.13", version = "^4.0.1" }
 mock = "^5.2.0"
 pytest = "^8.3.5"
 pytest-cov = "^6.1.1"
 pytest-mock = "^3.14.0"
+
+[tool.poetry.group.tests.dependencies.coveralls]
+python = "<3.13"
+version = "^4.0.1"
 
 [[tool.poetry.packages]]
 include = "installkernel_wsl"

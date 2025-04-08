@@ -1,4 +1,4 @@
-local project_name = 'wsl-update-kernel';
+local project_name = 'installkernel-wsl';
 local date_released = '2025-04-07';
 local version = '0.0.0';
 
@@ -24,7 +24,7 @@ local github_funding = {
 local github_theme = 'jekyll-theme-hacker';
 local keywords = ['command line', 'wsl'];
 local license = 'MIT';
-local module_name = 'wsl_update_kernel';
+local module_name = 'installkernel_wsl';
 local repository_name = project_name;
 local repository_uri = 'https://github.com/%s/%s' % [github_username, project_name];
 
@@ -39,6 +39,7 @@ local shared_ignore = [
   '.pnp.*',
   '/.coverage',
   '/.yarn/install-state.gz',
+  '/docs/_build/',
   '__pycache__/',
   'node_modules/',
 ];
@@ -58,7 +59,7 @@ local manifestYaml(value) =
 {
   '.gitattributes': manifestLines([
     '*.lock binary',
-    '/.yarn/**/*.cjs',
+    '/.yarn/**/*.cjs binary',
   ]),
   '.github/FUNDING.yml': manifestYaml(github_funding),
   '.github/dependabot.yml': manifestYaml({
@@ -551,6 +552,7 @@ local manifestYaml(value) =
         license: license,
         name: project_name,
         readme: 'README.md',
+        scripts: { 'installkernel-wsl': 'installkernel_wsl.main:main' },
         urls: {
             documentation: documentation_uri,
             issues: '%s/issues' % repository_uri,
@@ -567,16 +569,16 @@ local manifestYaml(value) =
         ],
         dependencies: {
           python: '>=3.%s,<3.14' % min_python_minor_version,
-          click: '^8.1.7',
+          click: '^8.1.8',
         },
         group: {
           dev: {
             optional: true,
             dependencies: {
               cffconvert: '^2.0.0',
-              commitizen: '^3.31.0',
-              mypy: '^1.13.0',
-              ruff: '^0.7.4',
+              commitizen: '^4.5.0',
+              mypy: '^1.15.0',
+              ruff: '^0.11.4',
               yapf: '^0.43.0',
             },
           },
@@ -587,7 +589,7 @@ local manifestYaml(value) =
               docutils: '^0.21.2',
               esbonio: '^0.16.5',
               'restructuredtext-lint': '^1.4.0',
-              sphinx: '^8.1.3',
+              sphinx: '^8.2.3',
               'sphinx-click': '^6.0.0',
               tomlkit: '^0.13.2',
             },
@@ -595,16 +597,13 @@ local manifestYaml(value) =
           tests: {
             optional: true,
             dependencies: {
-              coveralls: { python: '<3.13', version: '^3.3.1' },
-              mock: '^5.1.0',
-              pytest: '^8.3.3',
-              'pytest-cov': '^5.0.0',
+              coveralls: { python: '<3.13', version: '^4.0.1' },
+              mock: '^5.2.0',
+              pytest: '^8.3.5',
+              'pytest-cov': '^6.1.1',
               'pytest-mock': '^3.14.0',
             },
           },
-        },
-        scripts: {
-          'wsl-copy-kernel-to-host': '%s.main:main' % module_name,
         },
       },
       commitizen: {
