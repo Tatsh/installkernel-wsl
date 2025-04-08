@@ -14,6 +14,7 @@ local description = 'Script and installkernel hook to copy Linux kernel to the h
 local directory_name = project_name;
 local documentation_uri = 'https://%s.readthedocs.org' % project_name;
 local github_username = 'Tatsh';
+local github_pages_home = 'https://%s.github.io/%s/' % [std.asciiLower(github_username), project_name];
 local github_funding = {
   custom: null,
   github: github_username,
@@ -483,7 +484,7 @@ local manifestYaml(value) =
       pyright: '^1.1.389',
       'yarn-audit-fix': '^10.1.0',
     },
-    homepage: repository_uri,
+    homepage: github_pages_home,
     keywords: keywords,
     'markdownlint-cli2': {
       config: {
@@ -554,8 +555,9 @@ local manifestYaml(value) =
         readme: 'README.md',
         scripts: { 'installkernel-wsl': 'installkernel_wsl.main:main' },
         urls: {
+            homepage: github_pages_home,
             documentation: documentation_uri,
-            issues: '%s/issues' % repository_uri,
+            Issues: '%s/issues' % repository_uri,
             repository: repository_uri,
         },
         version: version,
