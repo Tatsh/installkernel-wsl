@@ -16,7 +16,7 @@ def get_home_paths() -> tuple[Path, PureWindowsPath]:
     if (wsl_conf := Path('/etc/wsl.conf')).exists():
         config = ConfigParser(delimiters=('=',), interpolation=None)
         config.read(wsl_conf)
-        mount_prefix = Path(config.get('automount', 'root')).resolve(strict=True)
+        mount_prefix = Path(config.get('automount', 'root', fallback='/mnt')).resolve(strict=True)
     # Case-insensitive search for first cmd.exe.
     cmd = min(mount_prefix.glob('*/windows/system32/cmd.exe',
                                 case_sensitive=False)).resolve(strict=True)
