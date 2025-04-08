@@ -6,5 +6,6 @@
 /.yarn/install-state.gz
 /docs/_build/
 __pycache__/
+dist/
 htmlcov/
 node_modules/

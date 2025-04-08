@@ -28,8 +28,8 @@ name = "Andrew Udvare"
 installkernel-wsl = "installkernel_wsl.main:main"
 
 [project.urls]
+Issues = "https://github.com/Tatsh/installkernel-wsl/issues"
 documentation = "https://installkernel-wsl.readthedocs.org"
-issues = "https://github.com/Tatsh/installkernel-wsl/issues"
 repository = "https://github.com/Tatsh/installkernel-wsl"
 
 [tool]
