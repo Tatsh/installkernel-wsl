@@ -475,7 +475,7 @@ local manifestYaml(value) =
     devDependencies: {
       '@prettier/plugin-xml': '^3.4.1',
       cspell: '^8.16.0',
-      'markdownlint-cli2': '^0.15.0',
+      'markdownlint-cli2': '^0.17.2',
       prettier: '^3.3.3',
       'prettier-plugin-ini': '^1.3.0',
       'prettier-plugin-sort-json': '^4.0.0',
