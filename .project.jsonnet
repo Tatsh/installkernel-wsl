@@ -1,6 +1,6 @@
 local project_name = 'installkernel-wsl';
 local date_released = '2025-04-07';
-local version = '0.0.0';
+local version = '0.0.1';
 
 local authors = [{'name': 'Andrew Udvare', 'email': 'audvare@gmail.com'}];
 local package_json_authors = ['%s <%s>' % [x['name'], x['email']] for x in authors];

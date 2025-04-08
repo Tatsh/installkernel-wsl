@@ -67,5 +67,5 @@
     "test": "poetry run pytest",
     "test:cov": "poetry run pytest --cov=. --cov-branch"
   },
-  "version": "0.0.0"
+  "version": "0.0.1"
 }

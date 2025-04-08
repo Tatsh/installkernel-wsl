@@ -7,7 +7,7 @@
 ![PyPI - Version](https://img.shields.io/pypi/v/installkernel-wsl)
 ![GitHub tag (with filter)](https://img.shields.io/github/v/tag/Tatsh/installkernel-wsl)
 ![GitHub](https://img.shields.io/github/license/Tatsh/installkernel-wsl)
-![GitHub commits since latest release (by SemVer including pre-releases)](https://img.shields.io/github/commits-since/Tatsh/installkernel-wsl/v0.0.0/master)
+![GitHub commits since latest release (by SemVer including pre-releases)](https://img.shields.io/github/commits-since/Tatsh/installkernel-wsl/v0.0.1/master)
 
 Script and installkernel hook to copy Linux kernel to the host system and update .wslconfig.
 
