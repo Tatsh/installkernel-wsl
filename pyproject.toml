@@ -66,7 +66,7 @@ warn_unreachable = true
 
 [tool.poetry.dependencies]
 click = "^8.1.8"
-python = ">=3.12,<3.13"
+python = ">=3.12,<3.14"
 
 [tool.poetry.group]
 
@@ -96,7 +96,7 @@ tomlkit = "^0.13.2"
 optional = true
 
 [tool.poetry.group.tests.dependencies]
-coveralls = "^4.0.1"
+coveralls = { python = "<3.13", version = "^4.0.1" }
 mock = "^5.2.0"
 pytest = "^8.3.5"
 pytest-cov = "^6.1.1"

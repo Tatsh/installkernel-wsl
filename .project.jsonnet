@@ -566,7 +566,7 @@ local manifestYaml(value) =
           },
         ],
         dependencies: {
-          python: '>=3.%s,<3.13' % min_python_minor_version,
+          python: '>=3.%s,<3.14' % min_python_minor_version,
           click: '^8.1.7',
         },
         group: {
@@ -595,7 +595,7 @@ local manifestYaml(value) =
           tests: {
             optional: true,
             dependencies: {
-              coveralls: '^3.3.1',
+              coveralls: { python: '<3.13', version: '^3.3.1' },
               mock: '^5.1.0',
               pytest: '^8.3.3',
               'pytest-cov': '^5.0.0',
