@@ -87,7 +87,7 @@ local manifestYaml(value) =
         'runs-on': 'ubuntu-latest',
         steps: [
           {
-            uses: 'actions/checkout@v3',
+            uses: 'actions/checkout@v4',
           },
           {
             name: 'Install Poetry',
@@ -95,7 +95,7 @@ local manifestYaml(value) =
           },
           {
             name: 'Set up Python ${{ matrix.python-version }}',
-            uses: 'actions/setup-python@v4',
+            uses: 'actions/setup-python@v5',
             with: {
               cache: 'poetry',
               'python-version': '${{ matrix.python-version }}',
