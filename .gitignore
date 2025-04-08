@@ -4,5 +4,6 @@
 .pnp.*
 /.coverage
 /.yarn/install-state.gz
+/docs/_build/
 __pycache__/
 node_modules/

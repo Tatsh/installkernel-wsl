@@ -1,6 +1,6 @@
-local project_name = 'wsl-update-kernel';
+local project_name = 'installkernel-wsl';
 local date_released = '2025-04-07';
-local version = '0.0.1';
+local version = '0.0.0';
 
 local authors = [{'name': 'Andrew Udvare', 'email': 'audvare@gmail.com'}];
 local package_json_authors = ['%s <%s>' % [x['name'], x['email']] for x in authors];
@@ -24,12 +24,12 @@ local github_funding = {
 local github_theme = 'jekyll-theme-hacker';
 local keywords = ['command line', 'wsl'];
 local license = 'MIT';
-local module_name = 'wsl_update_kernel';
+local module_name = 'installkernel_wsl';
 local repository_name = project_name;
 local repository_uri = 'https://github.com/%s/%s' % [github_username, project_name];
 
 local min_python_minor_version = '12';
-local supported_python_versions = ['3.%s' % min_python_minor_version] + [('3.%s' % i) for i in [12]];
+local supported_python_versions = ['3.%s' % min_python_minor_version] + [('3.%s' % i) for i in [13]];
 local yarn_version = '4.8.1';
 
 local shared_ignore = [
@@ -39,6 +39,7 @@ local shared_ignore = [
   '.pnp.*',
   '/.coverage',
   '/.yarn/install-state.gz',
+  '/docs/_build/',
   '__pycache__/',
   'node_modules/',
 ];
@@ -58,7 +59,7 @@ local manifestYaml(value) =
 {
   '.gitattributes': manifestLines([
     '*.lock binary',
-    '/.yarn/**/*.cjs',
+    '/.yarn/**/*.cjs binary',
   ]),
   '.github/FUNDING.yml': manifestYaml(github_funding),
   '.github/dependabot.yml': manifestYaml({
@@ -79,40 +80,6 @@ local manifestYaml(value) =
       },
     ],
     version: 2,
-  }),
-  '.github/workflows/close-inactive.yml': manifestYaml({
-    name: 'Close inactive issues',
-    on: {
-      schedule: [
-        {
-          cron: '30 1 * * *',
-        },
-      ],
-    },
-    jobs: {
-      'close-issues': {
-        'runs-on': 'ubuntu-latest',
-        permissions: {
-          issues: 'write',
-          'pull-requests': 'write',
-        },
-        steps: [
-          {
-            uses: 'actions/stale@v5',
-            with: {
-              'days-before-issue-stale': 30,
-              'days-before-issue-close': 14,
-              'stale-issue-label': 'stale',
-              'stale-issue-message': 'This issue is stale because it has been open for 30 days with no activity.',
-              'close-issue-message': 'This issue was closed because it has been inactive for 14 days since being marked as stale.',
-              'days-before-pr-stale': -1,
-              'days-before-pr-close': -1,
-              'repo-token': '${{ secrets.GITHUB_TOKEN }}',
-            },
-          },
-        ],
-      },
-    },
   }),
   '.github/workflows/qa.yml': manifestYaml({
     jobs: {
@@ -143,16 +110,12 @@ local manifestYaml(value) =
             run: 'yarn',
           },
           {
-            name: 'Install Shellcheck',
-            run: 'sudo apt-get install -y shellcheck',
-          },
-          {
-            name: 'Lint with Shellcheck',
-            run: 'yarn shellcheck',
-          },
-          {
             name: 'Lint with mypy',
-            run: 'yarn mypy',
+            run: 'yarn mypy .',
+          },
+          {
+            name: 'Lint with Ruff',
+            run: 'yarn ruff .',
           },
           {
             name: 'Check spelling',
@@ -589,6 +552,7 @@ local manifestYaml(value) =
         license: license,
         name: project_name,
         readme: 'README.md',
+        scripts: { 'installkernel-wsl': 'installkernel_wsl.main:main' },
         urls: {
             documentation: documentation_uri,
             issues: '%s/issues' % repository_uri,
@@ -604,17 +568,17 @@ local manifestYaml(value) =
           },
         ],
         dependencies: {
-          python: '>=3.%s,<3.13' % min_python_minor_version,
-          click: '^8.1.7',
+          python: '>=3.%s,<3.14' % min_python_minor_version,
+          click: '^8.1.8',
         },
         group: {
           dev: {
             optional: true,
             dependencies: {
               cffconvert: '^2.0.0',
-              commitizen: '^3.31.0',
-              mypy: '^1.13.0',
-              ruff: '^0.7.4',
+              commitizen: '^4.5.0',
+              mypy: '^1.15.0',
+              ruff: '^0.11.4',
               yapf: '^0.43.0',
             },
           },
@@ -625,7 +589,7 @@ local manifestYaml(value) =
               docutils: '^0.21.2',
               esbonio: '^0.16.5',
               'restructuredtext-lint': '^1.4.0',
-              sphinx: '^8.1.3',
+              sphinx: '^8.2.3',
               'sphinx-click': '^6.0.0',
               tomlkit: '^0.13.2',
             },
@@ -633,16 +597,13 @@ local manifestYaml(value) =
           tests: {
             optional: true,
             dependencies: {
-              coveralls: '^3.3.1',
-              mock: '^5.1.0',
-              pytest: '^8.3.3',
-              'pytest-cov': '^5.0.0',
+              coveralls: { python: '<3.13', version: '^4.0.1' },
+              mock: '^5.2.0',
+              pytest: '^8.3.5',
+              'pytest-cov': '^6.1.1',
               'pytest-mock': '^3.14.0',
             },
           },
-        },
-        scripts: {
-          'wsl-copy-kernel-to-host': '%s.main:main' % module_name,
         },
       },
       commitizen: {
