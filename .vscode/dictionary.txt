@@ -31,12 +31,14 @@ numpy
 pascalreitermann
 pipx
 proc
+purewindowspath
 pycache
 pydocstyle
 pylance
 pyproject
 pyright
 pytest
+regen
 schemafile
 shellcheck
 sphinxdoc
