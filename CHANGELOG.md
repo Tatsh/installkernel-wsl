@@ -9,22 +9,14 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-## [0.0.1] - 2025-00-00
+## [0.0.2] - 2025-04-13
 
 ### Added
 
-- Item
+- Python 3.10 and 3.11 support
 
-### Fixed
+## [0.0.1] - 2025-04-09
 
-- Item
+First version.
 
-### Changed
-
-- Item
-
-### Removed
-
-- Item
-
-[unreleased]: https://github.com/Tatsh/installkernel-wsl/-/compare/v{settings.version}...HEAD
+[unreleased]: https://github.com/Tatsh/installkernel-wsl/-/compare/v0.0.1...HEAD
