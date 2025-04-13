@@ -1,1 +1,2 @@
-"""installkernel_wsl module."""
+"""installkernel-wsl module."""
+__version__ = '0.0.1'

@@ -1146,7 +1146,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cspell@npm:^8.16.0":
+"cspell@npm:^8.18.1":
   version: 8.18.1
   resolution: "cspell@npm:8.18.1"
   dependencies:
@@ -1581,13 +1581,13 @@ __metadata:
   resolution: "installkernel-wsl@workspace:."
   dependencies:
     "@prettier/plugin-xml": "npm:^3.4.1"
-    cspell: "npm:^8.16.0"
+    cspell: "npm:^8.18.1"
     markdownlint-cli2: "npm:^0.17.2"
-    prettier: "npm:^3.3.3"
+    prettier: "npm:^3.5.3"
     prettier-plugin-ini: "npm:^1.3.0"
-    prettier-plugin-sort-json: "npm:^4.0.0"
-    prettier-plugin-toml: "npm:^2.0.1"
-    pyright: "npm:^1.1.389"
+    prettier-plugin-sort-json: "npm:^4.1.1"
+    prettier-plugin-toml: "npm:^2.0.4"
+    pyright: "npm:^1.1.398"
     yarn-audit-fix: "npm:^10.1.0"
   languageName: unknown
   linkType: soft
@@ -2456,7 +2456,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-plugin-sort-json@npm:^4.0.0":
+"prettier-plugin-sort-json@npm:^4.1.1":
   version: 4.1.1
   resolution: "prettier-plugin-sort-json@npm:4.1.1"
   peerDependencies:
@@ -2465,7 +2465,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier-plugin-toml@npm:^2.0.1":
+"prettier-plugin-toml@npm:^2.0.4":
   version: 2.0.4
   resolution: "prettier-plugin-toml@npm:2.0.4"
   dependencies:
@@ -2476,7 +2476,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:>=3.0.0-alpha.3, prettier@npm:^3.3.3":
+"prettier@npm:>=3.0.0-alpha.3, prettier@npm:^3.5.3":
   version: 3.5.3
   resolution: "prettier@npm:3.5.3"
   bin:
@@ -2509,9 +2509,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pyright@npm:^1.1.389":
-  version: 1.1.398
-  resolution: "pyright@npm:1.1.398"
+"pyright@npm:^1.1.398":
+  version: 1.1.399
+  resolution: "pyright@npm:1.1.399"
   dependencies:
     fsevents: "npm:~2.3.3"
   dependenciesMeta:
@@ -2520,7 +2520,7 @@ __metadata:
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: 10c0/f8cdfc3b7168d28e29e0597472305f0f1a282257e51b5006cbb91199e8cfa20a00a4df17b06f54e67206591b37af07317a7d1e1d1880711bd0d3d84bfba5c4dd
+  checksum: 10c0/e85c14c4d8cb5d63731c81f921395f468a9f9a8b60f4dd815fcd4b5c15664964187b686ff739bb899ea189036418a9b9fbe6229fb1fb14bf50dcc2092a62543e
   languageName: node
   linkType: hard
 
