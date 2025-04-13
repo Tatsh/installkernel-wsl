@@ -101,8 +101,9 @@ def get_cmd_path() -> Path:
     """Get the path to cmd.exe."""
     mount_prefix = get_automount_root()
     # Case-insensitive search for first cmd.exe.
-    cmd = min(mount_prefix.glob('*/windows/system32/cmd.exe',
-                                case_sensitive=False)).resolve(strict=True)
+    cmd = min(
+        mount_prefix.glob(''.join((f'[{x}{x.upper()}]' if x.isalpha() else x)
+                                  for x in '*/windows/system32/cmd.exe'))).resolve(strict=True)
     log.debug('cmd.exe path: %s', cmd)
     return cmd
 
