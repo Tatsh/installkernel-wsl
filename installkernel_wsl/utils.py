@@ -70,12 +70,12 @@ def update_wslconfig(kernel_path_lin: PathLike[str] | str) -> None:
     config.optionxform = str  # type: ignore[assignment,method-assign]
     kernel_path_win = wslpath(kernel_path_lin, windows=True, absolute=True)
     log.debug('Kernel path on Windows: %s', kernel_path_win)
-    config['wsl2']['kernel'] = str(kernel_path_win).replace('\\', '\\\\')
+    config['wsl2']['kernel'] = str(kernel_path_win).replace('\\', r'\\')
     log.debug('Writing .wslconfig.')
     with wslconfig.open('w+', encoding='utf-8') as f:
         config.write(f)
     log.debug('Stripping excess new lines.')
-    wslconfig.write_text(wslconfig.read_text(encoding='utf-8').strip() + '\n')
+    wslconfig.write_text(f"{wslconfig.read_text(encoding='utf-8').strip()}\n")
 
 
 @cache
@@ -100,10 +100,8 @@ def get_automount_root() -> Path:
 def get_cmd_path() -> Path:
     """Get the path to cmd.exe."""
     mount_prefix = get_automount_root()
-    # Case-insensitive search for first cmd.exe.
-    cmd = min(
-        mount_prefix.glob(''.join((f'[{x}{x.upper()}]' if x.isalpha() else x)
-                                  for x in '*/windows/system32/cmd.exe'))).resolve(strict=True)
+    # Case-insensitive search for first cmd.exe. Relies on [automount].case=off (the default).
+    cmd = min(mount_prefix.glob('*/windows/system32/cmd.exe')).resolve(strict=True)
     log.debug('cmd.exe path: %s', cmd)
     return cmd
 
