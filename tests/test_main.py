@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 def test_main_not_wsl(runner: CliRunner, mocker: MockerFixture) -> None:
     """Test main function when not running under WSL."""
     mocker.patch('installkernel_wsl.main.is_wsl', return_value=False)
-    result = runner.invoke(main)
+    result = runner.invoke(main, ('add', 'kernel-name', '', '/path/to-kernel'))
     assert result.exit_code == 1
     assert 'Not running under WSL or interop is disabled.' in result.output
 
@@ -22,7 +22,13 @@ def test_main(runner: CliRunner, mocker: MockerFixture) -> None:
     mocker.patch('installkernel_wsl.main.is_wsl', return_value=True)
     update = mocker.patch('installkernel_wsl.main.update_wslconfig')
     copy = mocker.patch('installkernel_wsl.main.copy_kernel_to_win')
-    result = runner.invoke(main)
+    result = runner.invoke(main, ('add', 'kernel-name', '', '/path/to-kernel'))
     assert result.exit_code == 0
     assert update.called
     assert copy.called
+
+
+def test_main_not_add(runner: CliRunner, mocker: MockerFixture) -> None:
+    result = runner.invoke(main, 'add2')
+    assert result.exit_code == 0
+    assert 'unsupported command' in result.output

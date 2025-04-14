@@ -8,7 +8,6 @@ from installkernel_wsl.utils import (
     copy_kernel_to_win,
     get_automount_root,
     get_cmd_path,
-    get_kernel_prefix,
     get_win_var,
     get_windows_home_path,
     get_windows_home_purewindowspath,
@@ -35,40 +34,31 @@ def test_is_wsl_not_wsl(mocker: MockerFixture) -> None:
     assert is_wsl() is False
 
 
-def test_get_kernel_prefix(mocker: MockerFixture) -> None:
-    mock_resolve = mocker.patch('installkernel_wsl.utils.Path.resolve')
-    mock_resolve.return_value = Path('/usr/src/linux-5.15.0')
-    assert get_kernel_prefix() == 'kernel-5.15.0'
-
-
 def test_copy_kernel_to_win_success(mocker: MockerFixture) -> None:
-    mocker.patch('installkernel_wsl.utils.get_kernel_prefix', return_value='kernel-5.15.0')
     mocker.patch('installkernel_wsl.utils.Path.glob',
                  return_value=[Path('/boot/kernel-5.15.0-WSL2')])
     mocker.patch('installkernel_wsl.utils.get_windows_home_path',
                  return_value=Path('/mnt/c/Users/test'))
     mock_copyfile = mocker.patch('installkernel_wsl.utils.copyfile')
 
-    result = copy_kernel_to_win()
-    mock_copyfile.assert_called_once_with(Path('/boot/kernel-5.15.0-WSL2'),
+    result = copy_kernel_to_win('kernel-5.15.0-WSL2', '/usr/src/linux/arch/x86/boot/bzImage')
+    mock_copyfile.assert_called_once_with('/usr/src/linux/arch/x86/boot/bzImage',
                                           Path('/mnt/c/Users/test/kernel-5.15.0-WSL2'))
     assert result == Path('/mnt/c/Users/test/kernel-5.15.0-WSL2')
 
 
 def test_copy_kernel_to_win_permission_error(mocker: MockerFixture) -> None:
-    mocker.patch('installkernel_wsl.utils.get_kernel_prefix', return_value='kernel-5.15.0')
     mocker.patch('installkernel_wsl.utils.Path.glob',
                  return_value=[Path('/boot/kernel-5.15.0-WSL2')])
     mocker.patch('installkernel_wsl.utils.get_windows_home_path',
                  return_value=Path('/mnt/c/Users/test'))
     mocker.patch('installkernel_wsl.utils.copyfile', side_effect=[PermissionError, None])
     mocker.patch('installkernel_wsl.utils.Path.exists', side_effect=[True, False])
-    result = copy_kernel_to_win()
+    result = copy_kernel_to_win('kernel-5.15.0-WSL2', '/usr/src/linux/arch/x86/boot/bzImage')
     assert result == Path('/mnt/c/Users/test/kernel-5.15.0-WSL2-01')
 
 
 def test_copy_kernel_to_win_permission_error_fail(mocker: MockerFixture) -> None:
-    mocker.patch('installkernel_wsl.utils.get_kernel_prefix', return_value='kernel-5.15.0')
     mocker.patch('installkernel_wsl.utils.Path.glob',
                  return_value=[Path('/boot/kernel-5.15.0-WSL2')])
     mocker.patch('installkernel_wsl.utils.get_windows_home_path',
@@ -76,7 +66,9 @@ def test_copy_kernel_to_win_permission_error_fail(mocker: MockerFixture) -> None
     mocker.patch('installkernel_wsl.utils.copyfile', side_effect=[PermissionError, None])
     mocker.patch('installkernel_wsl.utils.Path.exists', side_effect=[True, False])
     with pytest.raises(PermissionError):
-        copy_kernel_to_win(fail_immediately=True)
+        copy_kernel_to_win('kernel-5.15.0-WSL2',
+                           '/usr/src/linux/arch/x86/boot/bzImage',
+                           fail_immediately=True)
 
 
 def test_update_wslconfig(mocker: MockerFixture) -> None:

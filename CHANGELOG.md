@@ -9,6 +9,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.0.3]
+
+### Fixed
+
+- Fixed running from installkernel hook
+
 ## [0.0.2] - 2025-04-13
 
 ### Added
@@ -19,4 +25,4 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 First version.
 
-[unreleased]: https://github.com/Tatsh/installkernel-wsl/-/compare/v0.0.1...HEAD
+[unreleased]: https://github.com/Tatsh/installkernel-wsl/-/compare/v0.0.2...HEAD

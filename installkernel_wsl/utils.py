@@ -8,7 +8,6 @@ from shlex import quote
 from shutil import copyfile
 from typing import TYPE_CHECKING
 import logging
-import re
 import subprocess as sp
 
 if TYPE_CHECKING:  # pragma no cover
@@ -27,23 +26,13 @@ def is_wsl() -> bool:
     return Path('/proc/sys/fs/binfmt_misc/WSLInterop').exists()
 
 
-@cache
-def get_kernel_prefix() -> str:
-    """Get the kernel prefix for the current WSL distribution."""
-    kernel_prefix = re.sub(r'^linux-', 'kernel-', Path('/usr/src/linux').resolve(strict=True).name)
-    log.debug('Kernel prefix: %s', kernel_prefix)
-    return kernel_prefix
-
-
-def copy_kernel_to_win(*, fail_immediately: bool = False) -> Path:
+def copy_kernel_to_win(name: str, src: str, *, fail_immediately: bool = False) -> Path:
     """Copy the kernel update config file to the WSL config directory."""
-    kernel_prefix = get_kernel_prefix()
-    kernel = min(Path('/boot').glob(f'{kernel_prefix}*-WSL2')).name
-    log.debug('Kernel name: %s', kernel)
+    log.debug('Kernel name: %s', name)
     win_home_lin = get_windows_home_path()
-    target = win_home_lin / kernel
+    target = win_home_lin / name
     try:
-        copyfile(BOOT_PATH / kernel, target)
+        copyfile(src, target)
     except PermissionError:
         if fail_immediately:
             raise
@@ -51,13 +40,13 @@ def copy_kernel_to_win(*, fail_immediately: bool = False) -> Path:
                  ' same one that is trying to be written to. Using sequential suffix for kernel '
                  'filename.')
         index = 0
-        target = win_home_lin / f'{kernel}-00'
+        target = win_home_lin / f'{name}-00'
         while target.exists():
             index += 1
-            target = win_home_lin / f'{kernel}-{index:02d}'
-        copyfile(BOOT_PATH / kernel, target)
-        kernel = target.name
-        log.debug('Adjusted kernel name: %s', kernel)
+            target = win_home_lin / f'{name}-{index:02d}'
+        copyfile(src, target)
+        name = target.name
+        log.debug('Adjusted kernel name: %s', name)
     return target
 
 
@@ -92,7 +81,7 @@ def get_automount_root() -> Path:
         config = ConfigParser(delimiters=('=',), interpolation=None)
         config.read(wsl_conf)
         mount_prefix = Path(config.get('automount', 'root', fallback='/mnt'))
-    log.debug('automount root: %s', mount_prefix)
+    log.debug('Automount root: %s', mount_prefix)
     return mount_prefix
 
 
@@ -101,7 +90,9 @@ def get_cmd_path() -> Path:
     """Get the path to cmd.exe."""
     mount_prefix = get_automount_root()
     # Case-insensitive search for first cmd.exe. Relies on [automount].case=off (the default).
-    cmd = min(mount_prefix.glob('*/windows/system32/cmd.exe')).resolve(strict=True)
+    cmd = min(
+        mount_prefix.glob(''.join((f'[{x}{x.upper()}]' if x.isalpha() else x)
+                                  for x in '*/windows/system32/cmd.exe'))).resolve(strict=True)
     log.debug('cmd.exe path: %s', cmd)
     return cmd
 
