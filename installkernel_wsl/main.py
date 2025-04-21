@@ -18,7 +18,8 @@ __all__ = ('main',)
 @click.argument('command', nargs=1)
 @click.argument('command_args', nargs=-1, type=click.UNPROCESSED)
 def main(command: str, command_args: tuple[str, ...], *, debug: bool = False) -> None:
-    logging.basicConfig(format='%(levelname)s:%(module)s:%(lineno)d:%(funcName)s: %(message)s',
+    logging.basicConfig(format=('%(asctime)s | %(levelname)-8s | '
+                                '%(name)s:%(funcName)s:%(lineno)d - %(message)s'),
                         level=logging.DEBUG if debug else logging.WARNING)
     if command != 'add':
         click.echo(f'Ignoring unsupported command `{command}`.')
