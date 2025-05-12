@@ -8,4 +8,4 @@
 
 ## Reporting a Vulnerability
 
-Open an issue [here](https://github.com/Tatsh/installkernel-wsl/issues/new).
+Send me a direct message [on Bsky](https://bsky.app/profile/tatsh.bsky.social).

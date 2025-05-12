@@ -2,6 +2,7 @@ autodoc
 automodule
 automount
 binfmt
+bsky
 codeowners
 commitizen
 conftest
