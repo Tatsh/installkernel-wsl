@@ -27,7 +27,7 @@ email = "audvare@gmail.com"
 name = "Andrew Udvare"
 
 [project.optional-dependencies]
-erdantic = ["erdantic<2.0"]
+erdantic = ["erdantic (>=1.1.1,<2.0.0)"]
 
 [project.scripts]
 installkernel-wsl = "installkernel_wsl.main:main"
@@ -98,8 +98,8 @@ optional = true
 [tool.poetry.group.dev.dependencies]
 commitizen = "^4.8.3"
 djlint = "^1.36.4"
-mypy = ">=1.12,<1.17"
-ruff = "^0.12.3"
+mypy = "^1.17.0"
+ruff = "^0.12.4"
 yapf = "^0.43.0"
 
 [tool.poetry.group.docs]
