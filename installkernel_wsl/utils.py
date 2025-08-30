@@ -27,7 +27,25 @@ def is_wsl() -> bool:
 
 
 def copy_kernel_to_win(name: str, src: str, *, fail_immediately: bool = False) -> Path:
-    """Copy the kernel update config file to the WSL config directory."""
+    """
+    Copy the kernel update config file to the WSL config directory.
+
+    Parameters
+    ----------
+    name : str
+        The name of the kernel file to copy to Windows.
+    src : str
+        The source path of the kernel file to copy.
+    fail_immediately : bool
+        Whether to raise a `PermissionError` immediately if the file cannot be copied due to
+        permission issues, by default ``False``. If ``False``, a sequential suffix will be added
+        to the filename until a non-existing filename is found.
+
+    Raises
+    ------
+    PermissionError
+        If the file cannot be copied due to permission issues and ``fail_immediately`` is ``True``.
+    """
     log.debug('Kernel name: %s', name)
     win_home_lin = get_windows_home_path()
     target = win_home_lin / name
@@ -87,7 +105,7 @@ def get_automount_root() -> Path:
 
 @cache
 def get_cmd_path() -> Path:
-    """Get the path to cmd.exe."""
+    """Get the path to ``cmd.exe``."""
     mount_prefix = get_automount_root()
     # Case-insensitive search for first cmd.exe. Relies on [automount].case=off (the default).
     cmd = min(
@@ -98,7 +116,14 @@ def get_cmd_path() -> Path:
 
 
 def get_win_var(var_name: str) -> str:
-    """Get a Windows environment variable."""
+    """
+    Get a Windows environment variable.
+
+    Raises
+    ------
+    ValueError
+        If ``cmd.exe`` did not print a value for the variable.
+    """
     cmd = get_cmd_path()
     win_var = sp.run((cmd, '/c', f'<nul set /p=%{var_name}%'),
                      capture_output=True,
@@ -112,7 +137,14 @@ def get_win_var(var_name: str) -> str:
 
 
 def wslpath(path: str | PathLike[str], *, absolute: bool = False, windows: bool = False) -> str:
-    """Convert a Windows path to a WSL path."""
+    """
+    Convert a Windows path to a WSL path.
+
+    Raises
+    ------
+    ValueError
+        If ``wslpath`` did not print a value for the path.
+    """
     wsl_path = sp.run(
         (
             'wslpath',

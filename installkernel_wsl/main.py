@@ -18,6 +18,7 @@ __all__ = ('main',)
 @click.argument('command', nargs=1)
 @click.argument('command_args', nargs=-1, type=click.UNPROCESSED)
 def main(command: str, command_args: tuple[str, ...], *, debug: bool = False) -> None:
+    """Script and hook to copy Linux kernel to the host system and update .wslconfig."""  # noqa: DOC501
     logging.basicConfig(format=('%(asctime)s | %(levelname)-8s | '
                                 '%(name)s:%(funcName)s:%(lineno)d - %(message)s'),
                         level=logging.DEBUG if debug else logging.WARNING)

@@ -10,6 +10,9 @@ local utils = import 'utils.libjsonnet';
   citation+: {
     'date-released': '2025-04-12',
   },
+  copilot: {
+    intro: 'installkernel-wsl is a script and installkernel hook to copy Linux kernel to the host system and update `.wslconfig.`',
+  },
   pyproject+: {
     tool+: {
       poetry+: {
