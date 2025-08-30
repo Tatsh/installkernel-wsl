@@ -1,4 +1,4 @@
-installkernel_wsl
+installkernel-wsl
 =================
 
 .. only:: html
