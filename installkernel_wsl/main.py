@@ -1,8 +1,7 @@
 """Main script."""
 from __future__ import annotations
 
-import logging
-
+from bascom import setup_logging
 import click
 
 from .utils import copy_kernel_to_win, is_wsl, update_wslconfig
@@ -19,9 +18,11 @@ __all__ = ('main',)
 @click.argument('command_args', nargs=-1, type=click.UNPROCESSED)
 def main(command: str, command_args: tuple[str, ...], *, debug: bool = False) -> None:
     """Script and hook to copy Linux kernel to the host system and update .wslconfig."""  # noqa: DOC501
-    logging.basicConfig(format=('%(asctime)s | %(levelname)-8s | '
-                                '%(name)s:%(funcName)s:%(lineno)d - %(message)s'),
-                        level=logging.DEBUG if debug else logging.WARNING)
+    setup_logging(debug=debug,
+                  loggers={'installkernel_wsl': {
+                      'handlers': ('console',),
+                      'propagate': False
+                  }})
     if command != 'add':
         click.echo(f'Ignoring unsupported command `{command}`.')
         return
