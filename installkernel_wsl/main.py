@@ -18,11 +18,7 @@ __all__ = ('main',)
 @click.argument('command_args', nargs=-1, type=click.UNPROCESSED)
 def main(command: str, command_args: tuple[str, ...], *, debug: bool = False) -> None:
     """Script and hook to copy Linux kernel to the host system and update .wslconfig."""  # noqa: DOC501
-    setup_logging(debug=debug,
-                  loggers={'installkernel_wsl': {
-                      'handlers': ('console',),
-                      'propagate': False
-                  }})
+    setup_logging(debug=debug, loggers={'installkernel_wsl': {}})
     if command != 'add':
         click.echo(f'Ignoring unsupported command `{command}`.')
         return

@@ -13,6 +13,7 @@ colorlog
 commitizen
 conftest
 coveragerc
+coverallsapp
 dataclasses
 datatable
 datatables
@@ -39,8 +40,8 @@ jinja
 jsonnet
 jsonschema
 launchable
-levelname
 lextudio
+libera
 libjsonnet
 linters
 modindex
@@ -50,6 +51,7 @@ norecursedirs
 numpy
 numpydoc
 onefile
+pavelzw
 pipx
 proc
 prodvers
@@ -58,6 +60,8 @@ pydantic
 pydocstyle
 pyinstaller
 pylint
+pypa
+pypi
 pyproject
 pytest
 regen
