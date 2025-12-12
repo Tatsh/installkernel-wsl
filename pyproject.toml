@@ -20,7 +20,7 @@ keywords = ["command line", "wsl"]
 license = "MIT"
 name = "installkernel-wsl"
 readme = "README.md"
-version = "0.0.3"
+version = "0.0.4"
 
 [[project.authors]]
 email = "audvare@gmail.com"

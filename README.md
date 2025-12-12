@@ -4,7 +4,7 @@
 [![PyPI - Version](https://img.shields.io/pypi/v/installkernel-wsl)](https://pypi.org/project/installkernel-wsl/)
 [![GitHub tag (with filter)](https://img.shields.io/github/v/tag/Tatsh/installkernel-wsl)](https://github.com/Tatsh/installkernel-wsl/tags)
 [![License](https://img.shields.io/github/license/Tatsh/installkernel-wsl)](https://github.com/Tatsh/installkernel-wsl/blob/master/LICENSE.txt)
-[![GitHub commits since latest release (by SemVer including pre-releases)](https://img.shields.io/github/commits-since/Tatsh/installkernel-wsl/v0.0.3/master)](https://github.com/Tatsh/installkernel-wsl/compare/v0.0.3...master)
+[![GitHub commits since latest release (by SemVer including pre-releases)](https://img.shields.io/github/commits-since/Tatsh/installkernel-wsl/v0.0.4/master)](https://github.com/Tatsh/installkernel-wsl/compare/v0.0.4...master)
 [![CodeQL](https://github.com/Tatsh/installkernel-wsl/actions/workflows/codeql.yml/badge.svg)](https://github.com/Tatsh/installkernel-wsl/actions/workflows/codeql.yml)
 [![QA](https://github.com/Tatsh/installkernel-wsl/actions/workflows/qa.yml/badge.svg)](https://github.com/Tatsh/installkernel-wsl/actions/workflows/qa.yml)
 [![Tests](https://github.com/Tatsh/installkernel-wsl/actions/workflows/tests.yml/badge.svg)](https://github.com/Tatsh/installkernel-wsl/actions/workflows/tests.yml)

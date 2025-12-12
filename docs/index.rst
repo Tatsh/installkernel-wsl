@@ -19,8 +19,8 @@ installkernel-wsl
       :target: https://github.com/Tatsh/installkernel-wsl/blob/master/LICENSE.txt
       :alt: License
 
-   .. image:: https://img.shields.io/github/commits-since/Tatsh/installkernel-wsl/v0.0.3/master
-      :target: https://github.com/Tatsh/installkernel-wsl/compare/v0.0.3...master
+   .. image:: https://img.shields.io/github/commits-since/Tatsh/installkernel-wsl/v0.0.4/master
+      :target: https://github.com/Tatsh/installkernel-wsl/compare/v0.0.4...master
       :alt: GitHub commits since latest release (by SemVer including pre-releases)
 
    .. image:: https://github.com/Tatsh/installkernel-wsl/actions/workflows/codeql.yml/badge.svg
