@@ -30,7 +30,6 @@ fontawesome
 foxundermoon
 genindex
 globaltoc
-hoverxref
 htmlcov
 installkernel
 intersphinx
