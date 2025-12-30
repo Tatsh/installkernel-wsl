@@ -9,4 +9,5 @@ local utils = import 'utils.libjsonnet';
   copilot: {
     intro: 'installkernel-wsl is a script and installkernel hook to copy Linux kernel to the host system and update `.wslconfig.`',
   },
+  supported_platforms: ['linux'],
 }
