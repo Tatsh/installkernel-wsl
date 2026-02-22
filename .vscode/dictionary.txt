@@ -8,7 +8,6 @@ automount
 bascom
 binfmt
 bsky
-codeowners
 commitizen
 conftest
 coveragerc
@@ -27,6 +26,7 @@ excinfo
 fontawesome
 foxundermoon
 genindex
+getline
 globaltoc
 htmlcov
 installkernel
@@ -64,6 +64,8 @@ rstcheck
 schemafile
 sdist
 shellformat
+snapcore
+snapcraft
 softprops
 sphinxcontrib
 tatsh
