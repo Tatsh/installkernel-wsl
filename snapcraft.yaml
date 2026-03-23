@@ -28,7 +28,7 @@ platforms:
   arm64:
     build-on: 'arm64'
 source-code: 'https://github.com/Tatsh/installkernel-wsl'
-summary: 'Script and installkernel hook to copy Linux kernel to the host system and update .wslconfig.'
+summary: 'Copy Linux kernel to the Windows host and update .wslconfig.'
 title: 'installkernel-wsl'
 version: '0.0.4'
 website: 'https://tatsh.github.io/installkernel-wsl/'
