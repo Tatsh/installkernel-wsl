@@ -7,7 +7,7 @@ local utils = import 'utils.libjsonnet';
   project_name: 'installkernel-wsl',
   version: '0.0.4',
   want_main: true,
-  want_flatpak: true,
-  publishing+: { flathub: 'sh.tat.installkernel-wsl' },
+  want_flatpak: false,
+  want_snap: false,
   supported_platforms: ['linux'],
 }

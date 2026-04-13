@@ -80,8 +80,6 @@ version_files = [
   "installkernel_wsl/__init__.py",
   "man/installkernel-wsl.1",
   "package.json",
-  "sh.tat.installkernel-wsl.yml",
-  "snapcraft.yaml",
 ]
 version_provider = "pep621"
 
