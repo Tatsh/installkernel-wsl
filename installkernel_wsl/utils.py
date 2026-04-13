@@ -18,11 +18,19 @@ __all__ = ('copy_kernel_to_win', 'get_automount_root', 'get_cmd_path', 'get_win_
            'is_wsl', 'update_wslconfig', 'wslpath')
 
 BOOT_PATH = Path('/boot')
+_WSLPATH = Path('/usr/bin/wslpath')
 log = logging.getLogger(__name__)
 
 
 def is_wsl() -> bool:
-    """Check if running under WSL."""
+    """
+    Check if running under WSL.
+
+    Returns
+    -------
+    bool
+        ``True`` if the WSL interoperability file is present, ``False`` otherwise.
+    """
     return Path('/proc/sys/fs/binfmt_misc/WSLInterop').exists()
 
 
@@ -40,6 +48,11 @@ def copy_kernel_to_win(name: str, src: str, *, fail_immediately: bool = False) -
         Whether to raise a `PermissionError` immediately if the file cannot be copied due to
         permission issues, by default ``False``. If ``False``, a sequential suffix will be added
         to the filename until a non-existing filename is found.
+
+    Returns
+    -------
+    Path
+        Destination path of the copied kernel file (possibly with a numeric suffix).
 
     Raises
     ------
@@ -74,7 +87,7 @@ def update_wslconfig(kernel_path_lin: PathLike[str] | str) -> None:
     log.debug('Reading .wslconfig.')
     config = ConfigParser(delimiters=('=',), interpolation=None)
     config.read(wslconfig)
-    config.optionxform = str  # type: ignore[assignment,method-assign]
+    config.optionxform = str  # type: ignore[assignment,method-assign] # ty: ignore[invalid-assignment]
     kernel_path_win = wslpath(kernel_path_lin, windows=True, absolute=True)
     log.debug('Kernel path on Windows: %s', kernel_path_win)
     config['wsl2']['kernel'] = str(kernel_path_win).replace('\\', r'\\')
@@ -87,13 +100,27 @@ def update_wslconfig(kernel_path_lin: PathLike[str] | str) -> None:
 
 @cache
 def get_wslconfig_path() -> Path:
-    """Get the path to the .wslconfig file."""
+    """
+    Get the path to the .wslconfig file.
+
+    Returns
+    -------
+    Path
+        Full path to ``.wslconfig`` under the Windows user profile as a WSL path.
+    """
     win_home_lin = get_windows_home_path()
     return win_home_lin / '.wslconfig'
 
 
 def get_automount_root() -> Path:
-    """Get the automount root path."""
+    """
+    Get the automount root path.
+
+    Returns
+    -------
+    Path
+        The configured automount root, or ``/mnt`` when unset.
+    """
     mount_prefix = Path('/mnt')
     if (wsl_conf := Path('/etc/wsl.conf')).exists():
         config = ConfigParser(delimiters=('=',), interpolation=None)
@@ -105,7 +132,14 @@ def get_automount_root() -> Path:
 
 @cache
 def get_cmd_path() -> Path:
-    """Get the path to ``cmd.exe``."""
+    """
+    Get the path to ``cmd.exe``.
+
+    Returns
+    -------
+    Path
+        Resolved path to ``cmd.exe`` under the Windows installation.
+    """
     mount_prefix = get_automount_root()
     # Case-insensitive search for first cmd.exe. Relies on [automount].case=off (the default).
     cmd = min(
@@ -118,6 +152,11 @@ def get_cmd_path() -> Path:
 def get_win_var(var_name: str) -> str:
     """
     Get a Windows environment variable.
+
+    Returns
+    -------
+    str
+        The environment variable value printed by ``cmd.exe``.
 
     Raises
     ------
@@ -140,6 +179,11 @@ def wslpath(path: str | PathLike[str], *, absolute: bool = False, windows: bool 
     """
     Convert a Windows path to a WSL path.
 
+    Returns
+    -------
+    str
+        The path string printed by ``wslpath``.
+
     Raises
     ------
     ValueError
@@ -147,7 +191,7 @@ def wslpath(path: str | PathLike[str], *, absolute: bool = False, windows: bool 
     """
     wsl_path = sp.run(
         (
-            'wslpath',
+            _WSLPATH,
             *(('-a',) if absolute else ()),
             *(('-w',) if windows else ()),
             path,
@@ -165,7 +209,14 @@ def wslpath(path: str | PathLike[str], *, absolute: bool = False, windows: bool 
 
 @cache
 def get_windows_home_path() -> Path:
-    """Get the Windows home path."""
+    """
+    Get the Windows home path.
+
+    Returns
+    -------
+    Path
+        The Windows user profile directory as a WSL path.
+    """
     win_home_win = get_win_var('USERPROFILE')
     win_home_lin = wslpath(win_home_win, absolute=True)
     log.debug('Linux %%USERPROFILE%% path: %s', win_home_lin)
@@ -174,7 +225,14 @@ def get_windows_home_path() -> Path:
 
 @cache
 def get_windows_home_purewindowspath() -> PureWindowsPath:
-    """Get the Windows home path as a PureWindowsPath."""
+    """
+    Get the Windows home path as a PureWindowsPath.
+
+    Returns
+    -------
+    PureWindowsPath
+        The Windows user profile directory as a ``PureWindowsPath``.
+    """
     win_home_win = get_win_var('USERPROFILE')
     log.debug('Windows %%USERPROFILE%% path: %s', win_home_win)
     return PureWindowsPath(win_home_win)
