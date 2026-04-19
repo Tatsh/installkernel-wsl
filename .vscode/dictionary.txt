@@ -28,10 +28,10 @@ doctrees
 dunder
 eeyore
 elif
+esac
 esbenp
 esbonio
 excinfo
-flathub
 foxundermoon
 functools
 genindex
@@ -79,14 +79,15 @@ pypa
 pypi
 pyproject
 pytest
+pythonhosted
 regen
+ripgreprc
 rstcheck
 schemafile
 sdist
 setattr
 shellcheck
 shellformat
-snapcore
 snapcraft
 softprops
 soupsieve
@@ -97,6 +98,7 @@ testpaths
 tomlkit
 tomllib
 tomlq
+tostring
 tryfirst
 ubyte
 udvare
