@@ -189,17 +189,11 @@ def wslpath(path: str | PathLike[str], *, absolute: bool = False, windows: bool 
     ValueError
         If ``wslpath`` did not print a value for the path.
     """
-    wsl_path = sp.run(
-        (
-            _WSLPATH,
-            *(('-a',) if absolute else ()),
-            *(('-w',) if windows else ()),
-            path,
-        ),
-        capture_output=True,
-        check=True,
-        text=True,
-    ).stdout.strip()
+    wsl_path = sp.run((_WSLPATH, *(('-a',) if absolute else ()), *(('-w',) if windows else
+                                                                   ()), path),
+                      capture_output=True,
+                      check=True,
+                      text=True).stdout.strip()
     if not wsl_path:
         msg = f'wslpath returned an empty string for path `{path}`.'
         raise ValueError(msg)
