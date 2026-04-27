@@ -9,6 +9,21 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [unreleased]
 
+## [0.0.5]
+
+### Changed
+
+- Updated development dependencies (`cspell`, `markdownlint-cli2`, `mypy`, `prettier`,
+  `prettier-plugin-sort-json`, `pyright`, `ruff`).
+- Updated transitive npm and uv dependencies (`brace-expansion`, `flatted`, `minimatch`,
+  `picomatch`, `requests`, `tar`).
+- Updated GitHub Actions (`actions/attest-build-provenance`, `actions/cache`, `actions/upload-artifact`).
+- `utils`: addressed Ruff `DOC201` and Bandit `S607` findings.
+
+### Removed
+
+- Snap and Flatpak packaging.
+
 ## [0.0.4]
 
 ### Added
@@ -31,7 +46,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 First version.
 
-[unreleased]: https://github.com/Tatsh/installkernel-wsl/compare/v0.0.4...HEAD
+[unreleased]: https://github.com/Tatsh/installkernel-wsl/compare/v0.0.5...HEAD
+[0.0.5]: https://github.com/Tatsh/installkernel-wsl/compare/v0.0.4...v0.0.5
 [0.0.4]: https://github.com/Tatsh/installkernel-wsl/compare/v0.0.3...v0.0.4
 [0.0.3]: https://github.com/Tatsh/installkernel-wsl/compare/v0.0.2...v0.0.3
 [0.0.2]: https://github.com/Tatsh/installkernel-wsl/compare/v0.0.1...v0.0.2
