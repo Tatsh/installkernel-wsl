@@ -4,6 +4,8 @@ from pathlib import Path, PureWindowsPath
 from typing import TYPE_CHECKING
 from unittest.mock import MagicMock
 
+import pytest
+
 from installkernel_wsl.utils import (
     copy_kernel_to_win,
     get_automount_root,
@@ -16,7 +18,6 @@ from installkernel_wsl.utils import (
     update_wslconfig,
     wslpath,
 )
-import pytest
 
 if TYPE_CHECKING:
     from pytest_mock import MockerFixture
